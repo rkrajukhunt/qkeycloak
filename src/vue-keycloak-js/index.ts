@@ -29,17 +29,13 @@ export default {
     if (assertOptions(options).hasError)
       throw new Error(`Invalid options given: ${assertOptions(options).error}`);
 
-    console.error('Benoit1:', params, options);
-
     const watch = await vue2AndVue3Reactive(
       app,
       defaultEmptyVueKeycloakInstance()
     );
-    console.error('Benoit2:', params, options);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     getConfig(options.config!)
       .then((config) => {
-        console.error('Benoit0 config:', config);
         init(config as VueKeycloakConfig, watch, options);
       })
       .catch((err) => {
@@ -91,7 +87,6 @@ function vue2AndVue3Reactive(
     if (app.prototype) {
       // Vue 2
       try {
-        console.log('New Benoit-1');
         const reactiveObj = app.observable(object);
         Object.defineProperty(app.prototype, '$keycloak', {
           get() {
@@ -111,12 +106,9 @@ function vue2AndVue3Reactive(
       const reactiveObj = vue.reactive(object);
       // Override the existing reactiveObj so references contains the new reactive values
       app.config.globalProperties.$keycloak = reactiveObj;
-      console.log('New Benoit0');
       // Use provide/inject in Vue3 apps
       app.provide(KeycloakSymbol, reactiveObj);
-      console.log('New Benoit1');
       resolve(reactiveObj);
-      console.log('New Benoit2');
     }
   });
 }
@@ -126,7 +118,6 @@ function init(
   watch: VueKeycloakInstance,
   options: VueKeycloakOptions
 ) {
-  console.error('Benoit00:', config);
   const keycloak: Keycloak.KeycloakInstance = Keycloak(config);
 
   keycloak.onReady = function (authenticated: boolean) {
@@ -135,7 +126,6 @@ function init(
     typeof options.onReady === 'function' && options.onReady(keycloak, watch);
   };
   keycloak.onAuthSuccess = function () {
-    console.log('Benoit: success Auth');
     updateWatchVariables(true); //in IOS the ready function is not triggered for whatever reason .. Update manually the variables and ready status
     watch.ready = true;
     // Check token validity every 10 seconds (10 000 ms) and, if necessary, update the token.
@@ -162,20 +152,17 @@ function init(
     typeof options.onAuthRefreshError === 'function' &&
       options.onAuthRefreshError(keycloak);
   };
-  console.error('Benoit3:', options.init, keycloak);
   updateWatchVariables(false); //benoit addition to at least get part of the keycloak updated on IOS
   if (options.init != undefined)
     keycloak
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       .init(options.init)
       .then((authenticated: boolean) => {
-        console.error('Benoit4:', authenticated);
         updateWatchVariables(authenticated);
         typeof options.onInitSuccess === 'function' &&
           options.onInitSuccess(authenticated);
       })
       .catch((err: KeycloakError) => {
-        console.error('Benoit5:', err);
         updateWatchVariables(false);
         const error = Error(
           'Failure during initialization of keycloak-js adapter'
@@ -184,8 +171,6 @@ function init(
           ? options.onInitError(error, err)
           : console.error(error, err);
       });
-
-  console.error('Benoit6:');
 
   function updateWatchVariables(isAuthenticated = false) {
     watch.authenticated = isAuthenticated;
