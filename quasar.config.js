@@ -56,10 +56,10 @@ module.exports = configure(function (/* ctx */) {
         VUE_APP_KEYCLOAK_REALM: 'keycloak-demo',
       },*/
       env: {
-        VUE_APP_KEYCLOAK_URL: 'http://localhost:8180/',
+        VUE_APP_KEYCLOAK_URL: 'https://env-3279607.rag-cloud.hosteur.com/auth', // 'http://localhost:8180/', // 'http://10.0.2.2:8180/',android
         VUE_APP_PACKAGE_ID: 'org.picaps.qkeycloak',
-        VUE_APP_KEYCLOAK_CLIENT_ID: 'app-vue',
-        VUE_APP_KEYCLOAK_REALM: 'myrealm',
+        VUE_APP_KEYCLOAK_CLIENT_ID: 'webapp', // 'app-vue',
+        VUE_APP_KEYCLOAK_REALM: 'keycloak-demo', // 'myrealm',
       },
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],

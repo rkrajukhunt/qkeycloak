@@ -1,26 +1,18 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <div class="row">
-      <example-component
-        title="Example component"
-        active
-        :todos="todos"
-        :meta="meta"
-      ></example-component>
-    </div>
-    <div style="width: 500px">><secret-component></secret-component></div>
+  <q-page class="row">
+    <secret-component></secret-component>
   </q-page>
 </template>
 
 <script lang="ts">
 import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
 import SecretComponent from 'components/SecretComponent.vue';
+//import SecretComponentIOS from 'components/SecretComponentIos.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { ExampleComponent, SecretComponent },
+  components: { SecretComponent },
   data() {
     const todos: Todo[] = [
       {
