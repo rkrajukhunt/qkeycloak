@@ -1,7 +1,7 @@
 {
-  "appId": "org.picaps.qkeycloak",
-  "appName": "Quasar App",
+  "appId": "eb.esteemed.colleagues",
+  "appName": "Esteemed Colleagues",
   "bundledWebRuntime": false,
-  "npmClient": "npm",
+  "npmClient": "yarn",
   "webDir": "www"
 }
