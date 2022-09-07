@@ -1,5 +1,5 @@
 {
-  "appId": "eb.esteemed.colleagues",
+  "appId": "io.esteemed.colleagues",
   "appName": "Esteemed Colleagues",
   "bundledWebRuntime": false,
   "npmClient": "yarn",
